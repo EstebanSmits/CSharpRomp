@@ -23,9 +23,11 @@ namespace CSharpRomp
        //     services.AddMvc
             var connection = Configuration.GetConnectionString("daxmaxdb");
             services.AddDbContext<WideWorldImportersContext>(options => options.UseSqlServer(connection));
+            
+
             services.AddLogging();
             services.AddSingleton<IConfigurationRoot>(Configuration);
-            services.AddSingleton<ILocallizedServices,LocallizedServices>();
+            services.AddSingleton<ILocalizedServices,LocallizedServices>();
         }
     }
 }

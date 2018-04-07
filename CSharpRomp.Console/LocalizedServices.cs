@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CSharpRomp
 {
 
-    public class LocallizedServices : ILocallizedServices
+    public class LocallizedServices : ILocalizedServices
 
     {
         private readonly string _baseUrl;
@@ -33,7 +33,7 @@ namespace CSharpRomp
         }
     }
 
-    public interface ILocallizedServices
+    public interface ILocalizedServices
     {
         Task MyServiceMethod();
     }
