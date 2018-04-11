@@ -5,11 +5,15 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Console", "CSharpRomp.Console\CSharpRomp.Console.csproj", "{CFF7B3FA-97E6-4D53-87F9-1620F8D491CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Daxmax.Utilities", "Daxmax.Utilities\Daxmax.Utilities.csproj", "{48462E6D-1A53-4183-A2DC-432CBF216516}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Web", "CSharpRomp.Web\CSharpRomp.Web.csproj", "{02137B58-2170-45A6-B897-0661F9008B2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.WebApi", "CSharpRomp.WebApi\CSharpRomp.WebApi.csproj", "{CD07B5D5-401A-4F1E-AB98-32A79036ACDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Entities", "CSharpRomp.Entities\CSharpRomp.Entities.csproj", "{C95ED44B-4B48-4757-A06E-93B88B6137E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Data", "CSharpRomp.Repository\CSharpRomp.Data.csproj", "{715021AE-3EF5-4F02-9125-AD14144A240B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Contracts", "CSharpRomp.Repository.Interfaces\CSharpRomp.Contracts.csproj", "{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +24,6 @@ Global
 		{CFF7B3FA-97E6-4D53-87F9-1620F8D491CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFF7B3FA-97E6-4D53-87F9-1620F8D491CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFF7B3FA-97E6-4D53-87F9-1620F8D491CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48462E6D-1A53-4183-A2DC-432CBF216516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48462E6D-1A53-4183-A2DC-432CBF216516}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48462E6D-1A53-4183-A2DC-432CBF216516}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02137B58-2170-45A6-B897-0661F9008B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02137B58-2170-45A6-B897-0661F9008B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02137B58-2170-45A6-B897-0661F9008B2B}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -30,6 +31,18 @@ Global
 		{CD07B5D5-401A-4F1E-AB98-32A79036ACDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD07B5D5-401A-4F1E-AB98-32A79036ACDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD07B5D5-401A-4F1E-AB98-32A79036ACDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C95ED44B-4B48-4757-A06E-93B88B6137E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95ED44B-4B48-4757-A06E-93B88B6137E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95ED44B-4B48-4757-A06E-93B88B6137E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95ED44B-4B48-4757-A06E-93B88B6137E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{715021AE-3EF5-4F02-9125-AD14144A240B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{715021AE-3EF5-4F02-9125-AD14144A240B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{715021AE-3EF5-4F02-9125-AD14144A240B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{715021AE-3EF5-4F02-9125-AD14144A240B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

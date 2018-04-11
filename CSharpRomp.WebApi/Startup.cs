@@ -24,6 +24,7 @@ namespace CSharpRomp.WebApi
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
             Configuration = builder.Build();
+            Configuration.GetConnectionString("daxmaxDB");
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -32,6 +33,9 @@ namespace CSharpRomp.WebApi
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             services.Configure<TokenSettings>(Configuration.GetSection("TokenSettings"));
             services.Configure<ClaimSettings>(Configuration.GetSection("ClaimSettings"));
+
+            // Bind Configuration
+            services.AddSingleton(Configuration);
 
             // ... well we need some of those configs right here, lets created an intermediate service provider to retrieve those Options
             var sp = services.BuildServiceProvider();
