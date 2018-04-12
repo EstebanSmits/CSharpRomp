@@ -1,8 +1,10 @@
-﻿using CSharpRomp.WebApi.Models;
+﻿using CSharpRomp.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using CSharpRomp.Repository.Interface;
+using CSharpRomp.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -24,7 +26,7 @@ namespace CSharpRomp.WebApi
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
             Configuration = builder.Build();
-            Configuration.GetConnectionString("daxmaxDB");
+            Configuration.GetConnectionString("defaultDatabase");
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -33,7 +35,9 @@ namespace CSharpRomp.WebApi
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             services.Configure<TokenSettings>(Configuration.GetSection("TokenSettings"));
             services.Configure<ClaimSettings>(Configuration.GetSection("ClaimSettings"));
+            services.Configure<ConnectionSettings>(Configuration.GetSection("ConnectionStrings"));
 
+            
             // Bind Configuration
             services.AddSingleton(Configuration);
 
@@ -41,12 +45,13 @@ namespace CSharpRomp.WebApi
             var sp = services.BuildServiceProvider();
             // Resolve the services from the service provider
             var tokenOptions = sp.GetService<IOptions<TokenSettings>>();
-            var appOptions= sp.GetService<IOptions<ApplicationSettings>>();
-
+            var appOptions = sp.GetService<IOptions<ApplicationSettings>>();
+            var conn = sp.GetService<IOptions<ConnectionSettings>>();
+            services.AddScoped<IDapperRepository, DapperRepository>(serviceProvider => { return new DapperRepository(conn.Value.defaultDatabase); });
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme =  JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer("JwtBearer", jwtBearerOptions =>
             {
                 jwtBearerOptions.SaveToken = true;
@@ -69,8 +74,6 @@ namespace CSharpRomp.WebApi
             {
                 c.SwaggerDoc(appOptions.Value.Version, new Info { Title = appOptions.Value.ApplicationName, Version = appOptions.Value.Version });
             });
-
-            
         }
 
         private void CreateClaims()
@@ -100,6 +103,7 @@ namespace CSharpRomp.WebApi
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CSharpRompWebApi V1");
+              //  c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())
@@ -107,7 +111,6 @@ namespace CSharpRomp.WebApi
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc();
-            
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using System;
-
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
+﻿using CSharpRomp.Entities;
+using CSharpRomp.Repository.Interface;
 using CSharpRomp.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CSharpRomp.WebApi.Controllers
 {
@@ -19,26 +20,29 @@ namespace CSharpRomp.WebApi.Controllers
         private readonly IOptions<ApplicationSettings> config;
         private readonly IOptions<TokenSettings> tokenConfig;
         private readonly IOptions<ClaimSettings> ClaimConfig;
+
         public AuthenticateController(IOptions<ApplicationSettings> config, IOptions<TokenSettings> tokenConfig, IOptions<ClaimSettings> claimConfig)
         {
             this.config = config;
-            this.tokenConfig= tokenConfig;
+            this.tokenConfig = tokenConfig;
             this.ClaimConfig = claimConfig;
         }
+
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult RequestToken([FromBody] TokenRequest request)
+        public async Task<IActionResult> RequestTokenAsync([FromBody] TokenRequest request, [FromServices] IDapperRepository myDR)
         {
-            if (request.Username == "Jon" && request.Password == "Again, not for production use, DEMO ONLY!")
+            var myLogin = await myDR.GetRecord<AppLogin>("select * from AppLogin", new AppLogin { username = request.Username, password = request.Password });
+            if (myLogin.id != null)
             {
                 var claims = new[]
                 {
-                new Claim(ClaimTypes.Name, request.Username)
-                };
+                    new Claim(ClaimTypes.Name, request.Username)
+                    };
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Value.secretKey));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                
+
                 var token = new JwtSecurityToken(
                     issuer: tokenConfig.Value.issuer,
                     audience: tokenConfig.Value.audience,
@@ -51,9 +55,7 @@ namespace CSharpRomp.WebApi.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
-
             return BadRequest("Could not verify username and password");
         }
     }
-
 }
