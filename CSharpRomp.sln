@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Console", "CShar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Web", "CSharpRomp.Web\CSharpRomp.Web.csproj", "{02137B58-2170-45A6-B897-0661F9008B2B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.WebApi", "CSharpRomp.WebApi\CSharpRomp.WebApi.csproj", "{CD07B5D5-401A-4F1E-AB98-32A79036ACDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.WebApi", "CSharpRomp.WebApi\CSharpRomp.WebApi.csproj", "{CD07B5D5-401A-4F1E-AB98-32A79036ACDC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Entities", "CSharpRomp.Entities\CSharpRomp.Entities.csproj", "{C95ED44B-4B48-4757-A06E-93B88B6137E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Entities", "CSharpRomp.Entities\CSharpRomp.Entities.csproj", "{C95ED44B-4B48-4757-A06E-93B88B6137E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Repository", "CSharpRomp.Repository\CSharpRomp.Repository.csproj", "{715021AE-3EF5-4F02-9125-AD14144A240B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Data", "CSharpRomp.Repository\CSharpRomp.Data.csproj", "{715021AE-3EF5-4F02-9125-AD14144A240B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Repository.Interface", "CSharpRomp.Repository.Interface\CSharpRomp.Repository.Interface.csproj", "{2C2D0326-50AF-41B7-994B-35ABEA776C1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Contracts", "CSharpRomp.Repository.Interfaces\CSharpRomp.Contracts.csproj", "{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,10 @@ Global
 		{715021AE-3EF5-4F02-9125-AD14144A240B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{715021AE-3EF5-4F02-9125-AD14144A240B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{715021AE-3EF5-4F02-9125-AD14144A240B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FC559B5-970B-4DAA-8024-6AC793C6D6A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

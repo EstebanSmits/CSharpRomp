@@ -19,10 +19,4 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpRomp.Entities\CSharpRomp.Entities.csproj" />
-    <ProjectReference Include="..\CSharpRomp.Repository.Interface\CSharpRomp.Repository.Interface.csproj" />
-    <ProjectReference Include="..\CSharpRomp.Repository\CSharpRomp.Repository.csproj" />
-  </ItemGroup>
-
 </Project>
