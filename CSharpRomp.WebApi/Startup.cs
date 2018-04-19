@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using CSharpRomp.Repository;
+using CSharpRomp.Repository.Interface;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -33,16 +35,17 @@ namespace CSharpRomp.WebApi
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             services.Configure<TokenSettings>(Configuration.GetSection("TokenSettings"));
             services.Configure<ClaimSettings>(Configuration.GetSection("ClaimSettings"));
+            
 
             // Bind Configuration
             services.AddSingleton(Configuration);
-
+            
             // ... well we need some of those configs right here, lets created an intermediate service provider to retrieve those Options
             var sp = services.BuildServiceProvider();
             // Resolve the services from the service provider
             var tokenOptions = sp.GetService<IOptions<TokenSettings>>();
             var appOptions= sp.GetService<IOptions<ApplicationSettings>>();
-
+            services.AddTransient<IDapperRepository, BaseRepository>(serviceProvider => { return new BaseRepository(Configuration.GetConnectionString("daxmaxDB")); } );
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -67,10 +70,9 @@ namespace CSharpRomp.WebApi
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc(appOptions.Value.Version, new Info { Title = appOptions.Value.ApplicationName, Version = appOptions.Value.Version });
+                c.SwaggerDoc("v1", new Info { Title = appOptions.Value.ApplicationName, Version = appOptions.Value.Version });
             });
 
-            
         }
 
         private void CreateClaims()
@@ -93,20 +95,21 @@ namespace CSharpRomp.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<ApplicationSettings> config)
         {
+            app.UseAuthentication();
             app.UseSwagger();
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CSharpRompWebApi V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", config.Value.ApplicationName);
             });
-
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc();
+            
             
         }
     }

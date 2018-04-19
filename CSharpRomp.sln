@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRomp.Repository", "CS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpRomp.Repository.Interface", "CSharpRomp.Repository.Interface\CSharpRomp.Repository.Interface.csproj", "{2C2D0326-50AF-41B7-994B-35ABEA776C1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testwebApi", "testwebApi\testwebApi.csproj", "{3A6549F8-1422-481D-8C5A-E6AAECDEE252}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C2D0326-50AF-41B7-994B-35ABEA776C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6549F8-1422-481D-8C5A-E6AAECDEE252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6549F8-1422-481D-8C5A-E6AAECDEE252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6549F8-1422-481D-8C5A-E6AAECDEE252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6549F8-1422-481D-8C5A-E6AAECDEE252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

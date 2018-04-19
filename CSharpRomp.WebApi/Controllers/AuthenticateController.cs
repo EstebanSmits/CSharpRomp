@@ -1,14 +1,15 @@
 ﻿using System;
-
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-
+using CSharpRomp.Repository.Interface;
 using CSharpRomp.WebApi.Models;
+using CSharpRomp.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace CSharpRomp.WebApi.Controllers
 {
@@ -27,18 +28,20 @@ namespace CSharpRomp.WebApi.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult RequestToken([FromBody] TokenRequest request)
+
+        public async Task<IActionResult> RequestTokenAsync([FromBody] TokenRequest request, [FromServices] IDapperRepository myDR)
         {
-            if (request.Username == "Jon" && request.Password == "Again, not for production use, DEMO ONLY!")
+            var myLogin = await myDR.GetRecord<AppLogin>("select * from AppLogin", new AppLogin { username = request.Username, password = request.Password });
+            if (myLogin != null && myLogin.id != null)
             {
                 var claims = new[]
                 {
-                new Claim(ClaimTypes.Name, request.Username)
-                };
+                    new Claim(ClaimTypes.Name, request.Username)
+                    };
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Value.secretKey));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                
+
                 var token = new JwtSecurityToken(
                     issuer: tokenConfig.Value.issuer,
                     audience: tokenConfig.Value.audience,
@@ -51,9 +54,8 @@ namespace CSharpRomp.WebApi.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
-
             return BadRequest("Could not verify username and password");
         }
     }
-
 }
+

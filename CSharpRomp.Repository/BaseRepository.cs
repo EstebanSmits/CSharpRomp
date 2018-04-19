@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-
+using CSharpRomp.Repository.Interface;
 namespace CSharpRomp.Repository
 {
-    public class BaseRepository
+    public class BaseRepository: IDapperRepository
     {
         private string ConnectionString;
         public BaseRepository(string Connectionstring)
