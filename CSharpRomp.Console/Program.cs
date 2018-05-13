@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CSharpRomp.Models;
-using Daxmax.Utilities.Extensions;
 using System;
 using System.Linq;
 
@@ -29,8 +28,6 @@ namespace CSharpRomp
             var configuration = serviceProvider.GetService<IConfigurationRoot>();
             var context= serviceProvider.GetService<WideWorldImportersContext>();
              IQueryable<Countries> myCities = context.Countries;
-
-            Console.WriteLine( Debugging.var_dump( myCities.Where(x => (x.CountryName ?? string.Empty).ToLower().Contains("united"))) );
             Console.WriteLine(configuration.GetConnectionString("daxmaxdb"));
 
             Console.ReadLine();
