@@ -13,6 +13,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace CSharpRomp.WebApi
 {
@@ -95,7 +96,7 @@ namespace CSharpRomp.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<ApplicationSettings> config)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<ApplicationSettings> config, IDistributedCache Cache)
         {
             app.UseAuthentication();
             app.UseSwagger();

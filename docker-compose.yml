@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  csharpromp.web:
+    image: csharprompweb
+    build:
+      context: .
+      dockerfile: CSharpRomp.Web\Dockerfile
