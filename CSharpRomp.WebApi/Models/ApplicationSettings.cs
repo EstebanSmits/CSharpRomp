@@ -16,9 +16,9 @@ namespace CSharpRomp.WebApi.Models
     public class TokenSettings
     {
         public int  TokenExpiration { get; set; }
-        public String issuer { get; set; }
-        public String audience{ get; set; }
-        public String secretKey { get; set; }
+        public String Issuer { get; set; }
+        public String Audience{ get; set; }
+        public String SecretKey { get; set; }
 
     }
     public class ClaimSettings

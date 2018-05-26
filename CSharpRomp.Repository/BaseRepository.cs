@@ -8,15 +8,15 @@ namespace CSharpRomp.Repository
 {
     public class BaseRepository: IDapperRepository
     {
-        private string ConnectionString;
-        public BaseRepository(string Connectionstring)
+        private readonly string _connectionString;
+        public BaseRepository(string connectionstring)
         {
-            this.ConnectionString = Connectionstring;
+            _connectionString = connectionstring;
         }
         public async Task<IEnumerable<T>> GetRecords<T>(string sql, object parameters = null)
         {
             IEnumerable<T> records = default(IEnumerable<T>);
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.StatisticsEnabled = true;
                 await connection.OpenAsync();
@@ -38,9 +38,9 @@ namespace CSharpRomp.Repository
 
         public async Task<T> GetRecord<T>(string sql, object parameters = null)
         {
-            T record = default(T);
+            T record;
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.StatisticsEnabled = true;
                 await connection.OpenAsync();

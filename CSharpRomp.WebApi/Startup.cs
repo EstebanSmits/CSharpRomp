@@ -11,9 +11,13 @@ using CSharpRomp.Repository.Interface;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
+using CSharpRomp.EF.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace CSharpRomp.WebApi
 {
@@ -46,6 +50,8 @@ namespace CSharpRomp.WebApi
             // Resolve the services from the service provider
             var tokenOptions = sp.GetService<IOptions<TokenSettings>>();
             var appOptions= sp.GetService<IOptions<ApplicationSettings>>();
+            services.AddDbContext<ModelContext>(options =>
+                options.UseSqlServer((Configuration.GetConnectionString("daxmaxDB"))));
             services.AddTransient<IDapperRepository, BaseRepository>(serviceProvider => { return new BaseRepository(Configuration.GetConnectionString("daxmaxDB")); } );
             services.AddAuthentication(options =>
             {
@@ -58,11 +64,11 @@ namespace CSharpRomp.WebApi
                 {
                     ValidateIssuerSigningKey = true,
                     //TODO: Set  actual Signing Key
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.Value.secretKey)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.Value.SecretKey)),
                     ValidateIssuer = true,
-                    ValidIssuer = tokenOptions.Value.issuer,
+                    ValidIssuer = tokenOptions.Value.Issuer,
                     ValidateAudience = true,
-                    ValidAudience = tokenOptions.Value.audience,
+                    ValidAudience = tokenOptions.Value.Audience,
                     ValidateLifetime = true, //validate the expiration and not before values in the token
                     ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                 };
@@ -71,7 +77,9 @@ namespace CSharpRomp.WebApi
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = appOptions.Value.ApplicationName, Version = appOptions.Value.Version });
+        
+                c.SwaggerDoc("v1", new Info { Title = appOptions.Value.ApplicationName});
+                c.IncludeXmlComments(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "CSharpRomp.WebApi.xml"));
             });
 
         }
@@ -86,8 +94,8 @@ namespace CSharpRomp.WebApi
             // using a combination of standard claim type and JWTRegistered ClaimName types
             var claims = new Claim[] { new Claim(ClaimTypes.Name, "daxmax"), new Claim(JwtRegisteredClaimNames.Email, "daxmax@gmail.com") };
             var token = new JwtSecurityToken(
-                issuer: tokenConfig.issuer,
-                audience: tokenConfig.audience,
+                issuer: tokenConfig.Issuer,
+                audience: tokenConfig.Audience,
                 claims: claims,
                 notBefore: DateTime.Now,
                 expires: DateTime.Now.AddHours(claimConfig.ClaimExpiration),

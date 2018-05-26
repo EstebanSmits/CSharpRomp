@@ -11,7 +11,7 @@ namespace CSharpRomp.WebApi.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string> Get([FromBody] string value)
         {
             return new string[] { "value1", "value2" };
         }

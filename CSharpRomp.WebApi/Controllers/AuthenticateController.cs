@@ -24,7 +24,7 @@ namespace CSharpRomp.WebApi.Controllers
         {
             this.config = config;
             this.tokenConfig= tokenConfig;
-            this.ClaimConfig = claimConfig;
+            ClaimConfig = claimConfig;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -39,12 +39,12 @@ namespace CSharpRomp.WebApi.Controllers
                     new Claim(ClaimTypes.Name, request.Username)
                     };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Value.secretKey));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Value.SecretKey));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(
-                    issuer: tokenConfig.Value.issuer,
-                    audience: tokenConfig.Value.audience,
+                    issuer: tokenConfig.Value.Issuer,
+                    audience: tokenConfig.Value.Audience,
                     claims: claims,
                     expires: DateTime.Now.AddMinutes(30),
                     signingCredentials: creds);

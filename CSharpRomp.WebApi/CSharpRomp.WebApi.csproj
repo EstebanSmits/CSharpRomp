@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>39eabbf3-ecfe-4c75-9933-d0db0a2659ec</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/ec1e75b6-02a8-4f52-bf99-8843a6f6f9a4/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/CSharpRomp.WebApi</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/ec1e75b6-02a8-4f52-bf99-8843a6f6f9a4/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/CSharpRomp.WebApi</ApplicationInsightsAnnotationResourceId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\CSharpRomp.WebApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,10 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.0.0-beta2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="2.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
   </ItemGroup>
 
@@ -21,9 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CSharpRomp.EF.Database\CSharpRomp.EF.Database.csproj" />
     <ProjectReference Include="..\CSharpRomp.Entities\CSharpRomp.Entities.csproj" />
     <ProjectReference Include="..\CSharpRomp.Repository.Interface\CSharpRomp.Repository.Interface.csproj" />
     <ProjectReference Include="..\CSharpRomp.Repository\CSharpRomp.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
