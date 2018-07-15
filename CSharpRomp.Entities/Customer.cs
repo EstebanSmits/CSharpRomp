@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSharpRomp.Entities
 {
-    [Table("Customer", Schema = "SalesLT")]
-
-    public class Customer
+    public partial class Customer
     {
-     public Customer() { }
-
-        
-       public int CustomerID { get; set; }
+        public Customer()
+        {
+            CustomerAddress = new HashSet<CustomerAddress>();
+            SalesOrderHeader = new HashSet<SalesOrderHeader>();
+        }
+        [Key]
+        public int CustomerId { get; set; }
         public bool NameStyle { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
@@ -25,7 +25,10 @@ namespace CSharpRomp.Entities
         public string Phone { get; set; }
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
-        public object rowguid { get; set; }
+        public Guid Rowguid { get; set; }
         public DateTime ModifiedDate { get; set; }
-          }
+
+        public ICollection<CustomerAddress> CustomerAddress { get; set; }
+        public ICollection<SalesOrderHeader> SalesOrderHeader { get; set; }
     }
+}

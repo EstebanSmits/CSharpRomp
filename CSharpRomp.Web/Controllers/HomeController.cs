@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Globalization;
 
 namespace CSharpRomp.Web.Controllers
 {
@@ -11,10 +12,7 @@ namespace CSharpRomp.Web.Controllers
     public class HomeController : Controller
     {
         private IDistributedCache _cache;
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
         public IActionResult TestPage(IDistributedCache cache)
         {
             _cache = cache;
@@ -23,13 +21,13 @@ namespace CSharpRomp.Web.Controllers
 
             if (value == null)
             {
-                value = DateTime.Now.ToString();
+                value = DateTime.Now.ToString(CultureInfo.InvariantCulture);
                 var options = new DistributedCacheEntryOptions();
                 options.SetSlidingExpiration(TimeSpan.FromMinutes(1));
                 _cache.SetString("CacheTime", value, options);
             }
             ViewData["CacheTime"] = value;
-            ViewData["CurrentTime"] = DateTime.Now.ToString();
+            ViewData["CurrentTime"] = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             return View();
         }
 
